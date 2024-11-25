@@ -1,23 +1,19 @@
 import React, { useState } from "react";
 
-const AestheticTable = ({ columns = [], data = [] }) => {
+const CustomTable = ({ columns = [], data = [] }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
 
-  // Calculate the indices for the current page
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
 
-  // Calculate total pages
   const totalPages = Math.ceil(data.length / recordsPerPage);
 
-  // Handle page click
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  // Handle previous/next page
   const handlePrevious = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
@@ -28,17 +24,25 @@ const AestheticTable = ({ columns = [], data = [] }) => {
 
   return (
     <div>
-      {/* Table Container */}
       <div className="table-container">
-        <table className="aesthetic-table">
+        <table className="custom-table" aria-label="Custom data table">
           <thead>
             <tr>
               {columns.map((item) => (
-                <th key={item}>{item}</th>
+                <th key={item} scope="col">
+                  {item}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
+            {data?.length === 0 && (
+              <tr>
+                <td colSpan={columns.length} aria-live="polite">
+                  Loading...
+                </td>
+              </tr>
+            )}
             {currentRecords.map((row, index) => (
               <tr key={index}>
                 <td>{row["s.no"]}</td>
@@ -51,14 +55,23 @@ const AestheticTable = ({ columns = [], data = [] }) => {
       </div>
 
       {/* Pagination Container */}
-      <div className="pagination-container">
-        <button onClick={handlePrevious} disabled={currentPage === 1}>
+      <div className="pagination-container" aria-label="Pagination navigation">
+        <button
+          onClick={handlePrevious}
+          disabled={currentPage === 1}
+          aria-label="Go to previous page"
+          aria-disabled={currentPage === 1}
+        >
           Previous
         </button>
 
         <div className="page-numbers">
-          {currentPage > 3 && <button onClick={() => handlePageChange(1)}>1</button>}
-          {currentPage > 4 && <span>...</span>}
+          {currentPage > 3 && (
+            <button onClick={() => handlePageChange(1)} aria-label="Go to page 1">
+              1
+            </button>
+          )}
+          {currentPage > 4 && <span aria-hidden="true">...</span>}
 
           {[...Array(5)].map((_, index) => {
             const pageNum = currentPage - 2 + index;
@@ -68,6 +81,8 @@ const AestheticTable = ({ columns = [], data = [] }) => {
                   key={pageNum}
                   className={currentPage === pageNum ? "active" : ""}
                   onClick={() => handlePageChange(pageNum)}
+                  aria-label={`Go to page ${pageNum}`}
+                  aria-current={currentPage === pageNum ? "page" : undefined}
                 >
                   {pageNum}
                 </button>
@@ -76,13 +91,23 @@ const AestheticTable = ({ columns = [], data = [] }) => {
             return null;
           })}
 
-          {currentPage < totalPages - 3 && <span>...</span>}
+          {currentPage < totalPages - 3 && <span aria-hidden="true">...</span>}
           {currentPage < totalPages - 2 && (
-            <button onClick={() => handlePageChange(totalPages)}>{totalPages}</button>
+            <button
+              onClick={() => handlePageChange(totalPages)}
+              aria-label={`Go to last page (${totalPages})`}
+            >
+              {totalPages}
+            </button>
           )}
         </div>
 
-        <button onClick={handleNext} disabled={currentPage === totalPages}>
+        <button
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+          aria-label="Go to next page"
+          aria-disabled={currentPage === totalPages}
+        >
           Next
         </button>
       </div>
@@ -90,4 +115,4 @@ const AestheticTable = ({ columns = [], data = [] }) => {
   );
 };
 
-export default AestheticTable;
+export default CustomTable;

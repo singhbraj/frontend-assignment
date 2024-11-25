@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
-import AestheticTable from './components/table';
+import CustomTable from './components/CustomTable';
 
 const columns = ['S.No.','Percentage funded','Amount pledged']
 
@@ -15,7 +15,7 @@ const App = () => {
   }, []);
   console.log({data})
   return (
-    <AestheticTable columns={columns}  data={data} />
+    <CustomTable columns={columns}  data={data} />
   )
 }
 
