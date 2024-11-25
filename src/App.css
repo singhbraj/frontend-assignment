@@ -1,0 +1,109 @@
+/* Main container */
+.table-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+}
+
+/* Table styles */
+.aesthetic-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Roboto", sans-serif;
+}
+
+.aesthetic-table thead {
+  background: linear-gradient(90deg, #4c6ef5, #3b5bdb);
+  color: #ffffff;
+}
+
+.aesthetic-table th {
+  padding: 14px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+}
+
+.aesthetic-table tbody tr {
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+.aesthetic-table tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.aesthetic-table tbody tr:hover {
+  background-color: #e9f5ff;
+  transform: scale(1.01);
+  transition: all 0.3s ease-in-out;
+}
+
+.aesthetic-table td {
+  padding: 12px;
+  font-size: 15px;
+  color: #333333;
+  text-align: center;
+}
+
+.aesthetic-table td:first-child {
+  font-weight: bold;
+  color: #4c6ef5;
+}
+
+/* Pagination outside table */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
+  gap: 10px;
+}
+
+.pagination-container button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background-color: #4c6ef5;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-container button:hover {
+  background-color: #3b5bdb;
+}
+
+.pagination-container button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.pagination-container .page-numbers {
+  display: inline-flex;
+  align-items: center;
+}
+
+.pagination-container .page-numbers button {
+  margin: 0 5px;
+  padding: 0 10px;
+  height: 36px;
+  width: 36px;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.pagination-container .page-numbers button.active {
+  background-color: #3700b3;
+}
+
+.pagination-container .page-numbers button:hover {
+  background-color: #6200ea;
+}
